@@ -112,7 +112,6 @@ func ConvertIntoTree(cats []Category, rootParentID uint) interface{} {
 
 	list := map[uint]map[string]interface{}{}
 	for _, item := range cats {
-		//list[item.ID] = util.ConvertStructToMap(item, []string{})
 		list[item.ID] = structToMap(&item)
 	}
 
