@@ -70,7 +70,7 @@ var categories = []Category{
 
 func main() {
 	fmt.Println("Covert 1D Category Array into Tree Map of N Depth=>")
-	catMap := ConvertIntoTree(categories)
+	catMap := ConvertIntoTree(categories, uint(3))
 	formattedMapJson, err := json.MarshalIndent(catMap, "", "  ")
 	if err != nil {
     		fmt.Println("error:", err)
@@ -108,10 +108,11 @@ func structToMap(strt interface{}) (finalMap map[string]interface{}) {
 }
 
 
-func ConvertIntoTree(cats []Category) interface{} {
+func ConvertIntoTree(cats []Category, parentId uint) interface{} {
 
 	list := map[uint]map[string]interface{}{}
 	for _, item := range cats {
+		//list[item.ID] = util.ConvertStructToMap(item, []string{})
 		list[item.ID] = structToMap(&item)
 	}
 
@@ -128,10 +129,12 @@ func ConvertIntoTree(cats []Category) interface{} {
 		}
 
 	}
+	
+	if parentId < uint(1){
+		parentId = uint(1)
+	}
 
-	root := uint(1)
-
-	if node, ok := list[root]; ok {
+	if node, ok := list[parentId]; ok {
 		if nodeChild, ok := node["children"]; ok {
 			return nodeChild
 		}
