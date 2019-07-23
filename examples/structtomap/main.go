@@ -67,7 +67,6 @@ var categories = []Category{
 	Category{53, "Laptop PCs", 8},
 }
 
-//okay tested
 func main() {
 
 	fmt.Println("Input categories=>", categories)
@@ -80,9 +79,9 @@ func main() {
 }
 
 // strt should be a pointer (*)
-func structToMap(strt interface{}) (values map[string]interface{}) {
+func structToMap(strt interface{}) (finalMap map[string]interface{}) {
 
-	values = map[string]interface{}{}
+	finalMap = map[string]interface{}{}
 	iVal := reflect.ValueOf(strt).Elem()
 	typ := iVal.Type()
 	for i := 0; i < iVal.NumField(); i++ {
@@ -102,7 +101,7 @@ func structToMap(strt interface{}) (values map[string]interface{}) {
 		case string:
 			v = f.String()
 		}
-		values[typ.Field(i).Name] = v
+		finalMap[typ.Field(i).Name] = v
 	}
 	return
 }
