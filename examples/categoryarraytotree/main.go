@@ -108,7 +108,7 @@ func structToMap(strt interface{}) (finalMap map[string]interface{}) {
 }
 
 
-func ConvertIntoTree(cats []Category, parentId uint) interface{} {
+func ConvertIntoTree(cats []Category, rootParentID uint) interface{} {
 
 	list := map[uint]map[string]interface{}{}
 	for _, item := range cats {
@@ -130,11 +130,11 @@ func ConvertIntoTree(cats []Category, parentId uint) interface{} {
 
 	}
 	
-	if parentId < uint(1){
-		parentId = uint(1)
+	if rootParentID < uint(1){
+		rootParentID = uint(1)
 	}
 
-	if node, ok := list[parentId]; ok {
+	if node, ok := list[rootParentID]; ok {
 		if nodeChild, ok := node["children"]; ok {
 			return nodeChild
 		}
